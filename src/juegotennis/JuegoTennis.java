@@ -4,6 +4,8 @@
  */
 package juegotennis;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Omar
@@ -13,15 +15,17 @@ public class JuegoTennis {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Juego juego = new Juego();
-       /* while (true) {
-            if(!juego.jugar())
-                   Thread.sleep(0);
-            else{
+        JFrame frame = new JFrame("Mini Tennis");
+		frame.add(juego);
+		frame.setSize(600, 400);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        while (true) {
                juego.move();
                juego.repaint();
-               Thread.sleep(5);}
-       }*/
+               Thread.sleep(5);
+        }
     }
 }
