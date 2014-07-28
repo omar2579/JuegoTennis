@@ -23,6 +23,7 @@ public class Juego extends JPanel implements ActionListener{
     Player1 player1 = new Player1(this,0);
     Player2 player2 = new Player2(this,574);
     JButton reset;
+    boolean play = true;
     public Juego(){
                 reset = new JButton();
                 reset.setText("reset");
@@ -55,6 +56,7 @@ public class Juego extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==reset) {
+            play = true;
             reset.setVisible(false);
         }
     }
@@ -86,5 +88,9 @@ public class Juego extends JPanel implements ActionListener{
 	public void gameOver() {
                 reset.setVisible(true);
                 ball.Reset();
+                play = false;
 	}
+       boolean play(){
+           return play;
+       } 
 }

@@ -23,9 +23,11 @@ public class JuegoTennis {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while (true) {
-               juego.move();
-               juego.repaint();
-               Thread.sleep(5);
+               if(juego.play()){
+                   juego.move();
+                   juego.repaint();
+                   Thread.sleep(5);
+               }
         }
     }
 }

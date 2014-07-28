@@ -31,18 +31,18 @@ public class Ball {
 			MovimientoEnY = 1;
 		if (PosicionEnY + MovimientoEnY > juego.getHeight() - DIAMETER)
                         MovimientoEnY = -1;
-		if (collision()){
-			movimientoEnX = 1;
-		}
-                if (collision2()){
-			movimientoEnX = -1;
-		}
+                
+		movimientoEnX = collision();
 		posicionEnX = posicionEnX + movimientoEnX;
 		PosicionEnY = PosicionEnY + MovimientoEnY;
 	}
 
-	private boolean collision() {
-		return juego.player1.getBounds().intersects(getBounds());
+	private int collision() {
+            if(juego.player1.getBounds().intersects(getBounds()))
+		return 1;
+            if(juego.player2.getBounds().intersects(getBounds()))
+                return -1;
+            return movimientoEnX;
 	}
         private boolean collision2() {
 		return juego.player2.getBounds().intersects(getBounds());
