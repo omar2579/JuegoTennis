@@ -13,47 +13,88 @@ import java.awt.Rectangle;
  */
 public class Ball {
     private static final int DIAMETER = 30;
-	int posicionEnX = 200;
-	int PosicionEnY = 0;
-	int movimientoEnX = 1;
-	int MovimientoEnY = 1;
+	int posicionEnX = 10;
+	int posicionEnY = 40;
+	int movimientoEnX = 0;
+	int movimientoEnY = 0;
+        int fuerza = 500;
+        int velosidad = 2;
 	private final Juego juego;
 
 	public Ball(Juego juego) {
-		this.juego= juego;
+		this.juego = juego;
 	}
         void move() {
 		if (posicionEnX + movimientoEnX < 0)
                     juego.setPuntos(2);
 		if (posicionEnX + movimientoEnX > juego.getWidth() - DIAMETER)
                     juego.setPuntos(1);
-		if (PosicionEnY + MovimientoEnY < 0)
-			MovimientoEnY = 1;
-		if (PosicionEnY + MovimientoEnY > juego.getHeight() - DIAMETER)
-                        MovimientoEnY = -1;
-                
-		movimientoEnX = collision();
-		posicionEnX = posicionEnX + movimientoEnX;
-		PosicionEnY = PosicionEnY + MovimientoEnY;
+		if (posicionEnY + movimientoEnY < 0){
+                    if(posicionEnX < juego.getWidth()/2){
+                        juego.setPuntos(2);
+                    }
+                    else if(posicionEnX > juego.getWidth()/2){
+                        juego.setPuntos(1);
+                    }
+                }
+		if (posicionEnY + movimientoEnY > juego.getHeight() - DIAMETER){
+                    if(posicionEnX < juego.getWidth()/2){
+                        juego.setPuntos(2);
+                    }
+                    else if(posicionEnX > juego.getWidth()/2) {
+                        juego.setPuntos(1);
+                    }
+                }
+                collision(juego.player1);
+                collision(juego.player2);
+                if(fuerza>0){
+                    fuerza -= movimientoEnX;
+                    posicionEnX = posicionEnX + movimientoEnX;
+                    posicionEnY = posicionEnY + movimientoEnY;
+                }
+                else{
+                    if(posicionEnX < juego.getWidth()/2)
+                        juego.setPuntos(2);
+                    else 
+                        juego.setPuntos(1);
+                }
 	}
 
-	private int collision() {
-            if(juego.player1.getBounds().intersects(getBounds()))
-		return 1;
-            if(juego.player2.getBounds().intersects(getBounds()))
-                return -1;
-            return movimientoEnX;
+	private void collision(Player player) {
+            if(player.getBounds().intersects(getBounds()) && player.pegar){
+                fuerza=400;
+                movimientoEnX=-movimientoEnX;
+                movimientoEnY = (int) (getBounds().getCenterY()-player.getBounds().getCenterY())/5;
+            }
+            else if(player.getBounds().intersects(getBounds())){
+                fuerza = 200;
+                movimientoEnX=-movimientoEnX;
+                movimientoEnY = (int) (getBounds().getCenterY()-player.getBounds().getCenterY())/5;
+            }
 	}
 	public void paint(Graphics2D g) {
-		g.fillOval(posicionEnX, PosicionEnY, DIAMETER, DIAMETER);
+		g.fillOval(posicionEnX, posicionEnY, DIAMETER, DIAMETER);
 	}
 	public Rectangle getBounds() {
-		return new Rectangle(posicionEnX, PosicionEnY, DIAMETER, DIAMETER);
+		return new Rectangle(posicionEnX, posicionEnY, DIAMETER, DIAMETER);
 	}
-        public void Reset(){
-            posicionEnX = 200;
-            PosicionEnY = 0;
-            movimientoEnX = 1;
-            MovimientoEnY = 1;
+    public void Reset(int jugador){
+        if(jugador == 1){
+            posicionEnX = 10;
+            posicionEnY = 40;  
         }
+        else{
+            posicionEnX = juego.getWidth() - 40;
+            posicionEnY = juego.getHeight() - 60;
+        }
+        fuerza=500;
+        movimientoEnX = 0;
+        movimientoEnY = 0;
+    }
+    void sacar(int jugador){
+        if (jugador == 1)
+            movimientoEnX = velosidad;
+        else
+            movimientoEnX = -velosidad;  
+    }
 }

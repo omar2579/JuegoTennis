@@ -11,22 +11,29 @@ public class Player2 extends Player {
     
     public Player2(Juego juego) {
         super(juego);
-        this.posicionEnX =  juego.getWidth() - WIDTH;
+        posicionEnX = juego.getWidth() - WIDTH;
+        posicionEnY = juego.getHeight() - HEIGHT*2;
     }
     public void move(){
         if (posicionEnY + movimientoEnY > 0 && posicionEnY + movimientoEnY < juego.getHeight()- HEIGHT)
 			posicionEnY +=  movimientoEnY;
-        if (posicionEnX + movimientoEnX > juego.getWidth()/2 && posicionEnX + movimientoEnX < juego.getWidth()- WIDTH)
+        if (posicionEnX + movimientoEnX > juego.getWidth()/2 && posicionEnX + movimientoEnX <= juego.getWidth()- WIDTH)
 			posicionEnX += movimientoEnX;
     }
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP)
-                movimientoEnY = -1;
+                movimientoEnY = -velocidad;
         if (e.getKeyCode() == KeyEvent.VK_DOWN)
-                movimientoEnY = 1;
+                movimientoEnY = velocidad;
         if (e.getKeyCode() == KeyEvent.VK_LEFT)
-                movimientoEnX = -1;
+                movimientoEnX = -velocidad;
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-                movimientoEnX = 1;
+                movimientoEnX = velocidad;
+        if (e.getKeyCode() == KeyEvent.VK_L)
+                pegar = true;
+    }
+    public void reset(){
+        posicionEnX = juego.getWidth() - WIDTH;
+        posicionEnY = juego.getHeight() - HEIGHT*2;
     }
 }

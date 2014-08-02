@@ -16,10 +16,12 @@ abstract class Player {
 
 	static final int WIDTH = 10;
 	static final int HEIGHT = 60;
-	int posicionEnY = 150;
+	int posicionEnY = 0;
 	int movimientoEnY = 0;
         int posicionEnX = 0;
         int movimientoEnX = 0;
+        int velocidad = 2;
+        boolean pegar = false;
 	public Juego juego;
 
 	public Player(Juego juego) {
@@ -35,6 +37,7 @@ abstract class Player {
 	public void keyReleased(KeyEvent e) {
 		movimientoEnY = 0;
                 movimientoEnX = 0;
+                pegar = false;
 	}
 
 	public Rectangle getBounds() {

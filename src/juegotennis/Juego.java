@@ -24,6 +24,7 @@ public class Juego extends JPanel implements ActionListener{
     Player2 player2;
     JButton reset;
     boolean play = true;
+    int jugador = 1;
     public Juego(){
         setSize(600, 400);
         setLayout(null);
@@ -48,8 +49,13 @@ public class Juego extends JPanel implements ActionListener{
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
+                            if (e.getKeyCode() == KeyEvent.VK_H && ball.movimientoEnX == 0){
+                                ball.sacar(jugador);
+                            }
+                            if(ball.movimientoEnX != 0){
 				player1.keyPressed(e);
                                 player2.keyPressed(e);
+                            }
 			}
 		});
 	}
@@ -67,7 +73,10 @@ public class Juego extends JPanel implements ActionListener{
         }
         else
             System.out.println("punto player 2");
-        gameOver();
+        ball.Reset(player);
+        player1.reset();
+        player2.reset();
+        jugador = player;
     }
     public void move() {
         ball.move();
@@ -83,11 +92,12 @@ public class Juego extends JPanel implements ActionListener{
         ball.paint(g2d);
         player1.paint(g2d);
         player2.paint(g2d);
+        g.fillRect((this.getWidth()/2)-1, 0, 2, this.getHeight());
     }
 	
     public void gameOver() {
         reset.setVisible(true);
-        ball.Reset();
+        ball.Reset(1);
         play = false;
     }
     boolean play(){

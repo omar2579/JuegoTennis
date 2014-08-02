@@ -11,7 +11,8 @@ public class Player1 extends Player {
 
     public Player1(Juego juego) {
         super(juego);
-        this.posicionEnX =  0;
+        posicionEnX =  0;
+        posicionEnY =  30;
     }
     public void move(){
         if (posicionEnY + movimientoEnY > 0 && posicionEnY + movimientoEnY < juego.getHeight()- HEIGHT)
@@ -21,12 +22,18 @@ public class Player1 extends Player {
     }
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W)
-                movimientoEnY = -1;
+                movimientoEnY = -velocidad;
         if (e.getKeyCode() == KeyEvent.VK_S)
-                movimientoEnY = 1;
+                movimientoEnY = velocidad;
         if (e.getKeyCode() == KeyEvent.VK_A)
-                movimientoEnX = -1;
+                movimientoEnX = -velocidad;
         if (e.getKeyCode() == KeyEvent.VK_D)
-                movimientoEnX = 1;
+                movimientoEnX = velocidad;
+        if (e.getKeyCode() == KeyEvent.VK_E)
+                pegar = true;
+    }
+    public void reset(){
+        posicionEnX =  0;
+        posicionEnY =  30;
     }
 }
