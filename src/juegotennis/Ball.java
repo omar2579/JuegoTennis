@@ -17,7 +17,7 @@ public class Ball {
 	int PosicionEnY = 0;
 	int movimientoEnX = 1;
 	int MovimientoEnY = 1;
-	private Juego juego;
+	private final Juego juego;
 
 	public Ball(Juego juego) {
 		this.juego= juego;
@@ -43,9 +43,6 @@ public class Ball {
             if(juego.player2.getBounds().intersects(getBounds()))
                 return -1;
             return movimientoEnX;
-	}
-        private boolean collision2() {
-		return juego.player2.getBounds().intersects(getBounds());
 	}
 	public void paint(Graphics2D g) {
 		g.fillOval(posicionEnX, PosicionEnY, DIAMETER, DIAMETER);

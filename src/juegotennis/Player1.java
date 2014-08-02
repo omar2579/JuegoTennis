@@ -8,18 +8,25 @@ import java.awt.event.KeyEvent;
 
 
 public class Player1 extends Player {
-    int posicionEnX;
-    public Player1(Juego juego,int posicionEnX) {
+
+    public Player1(Juego juego) {
         super(juego);
-        this.posicionEnX =  posicionEnX;
+        this.posicionEnX =  0;
     }
-    public int getPosicionEnX(){
-        return posicionEnX;
+    public void move(){
+        if (posicionEnY + movimientoEnY > 0 && posicionEnY + movimientoEnY < juego.getHeight()- HEIGHT)
+			posicionEnY +=  movimientoEnY;
+        if (posicionEnX + movimientoEnX > 0 && posicionEnX + movimientoEnX < (juego.getWidth()/2)- WIDTH)
+			posicionEnX += movimientoEnX;
     }
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W)
+                movimientoEnY = -1;
+        if (e.getKeyCode() == KeyEvent.VK_S)
+                movimientoEnY = 1;
         if (e.getKeyCode() == KeyEvent.VK_A)
-                moverse(-1);
-        if (e.getKeyCode() == KeyEvent.VK_Z)
-                moverse(1);
+                movimientoEnX = -1;
+        if (e.getKeyCode() == KeyEvent.VK_D)
+                movimientoEnX = 1;
     }
 }

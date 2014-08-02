@@ -19,7 +19,7 @@ public class JuegoTennis {
         Juego juego = new Juego();
         JFrame frame = new JFrame("Mini Tennis");
 		frame.add(juego);
-		frame.setSize(600, 400);
+		frame.setSize(615, 400);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while (true) {

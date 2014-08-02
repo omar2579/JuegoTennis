@@ -20,17 +20,23 @@ import javax.swing.JPanel;
  */
 public class Juego extends JPanel implements ActionListener{
     Ball ball = new Ball(this);
-    Player1 player1 = new Player1(this,0);
-    Player2 player2 = new Player2(this,574);
+    Player1 player1;
+    Player2 player2;
     JButton reset;
     boolean play = true;
     public Juego(){
+        setSize(600, 400);
+        setLayout(null);
+        setVisible(true);
+        setFocusable(true);
                 reset = new JButton();
                 reset.setText("reset");
                 reset.setBounds(270, 100, 75, 25);
                 reset.setVisible(false);
                 reset.addActionListener(this);
                 add(reset);
+                player1 = new Player1(this);
+                player2 = new Player2(this);
                 addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -46,11 +52,6 @@ public class Juego extends JPanel implements ActionListener{
                                 player2.keyPressed(e);
 			}
 		});
-
-                setSize(600, 400);
-                setLayout(null);
-                setVisible(true);
-		setFocusable(true);
 	}
 
     @Override
@@ -69,28 +70,27 @@ public class Juego extends JPanel implements ActionListener{
         gameOver();
     }
     public void move() {
-		ball.move();
-		player1.move();
-                player2.move();
+        ball.move();
+        player1.move();
+        player2.move();
     }
 
     @Override
     public void paint(Graphics g) {
-            super.paint(g);
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                            RenderingHints.VALUE_ANTIALIAS_ON);
-            ball.paint(g2d);
-            player1.paint(g2d);
-            player2.paint(g2d);
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        ball.paint(g2d);
+        player1.paint(g2d);
+        player2.paint(g2d);
     }
 	
-	public void gameOver() {
-                reset.setVisible(true);
-                ball.Reset();
-                play = false;
-	}
-       boolean play(){
-           return play;
-       } 
+    public void gameOver() {
+        reset.setVisible(true);
+        ball.Reset();
+        play = false;
+    }
+    boolean play(){
+       return play;
+   } 
 }
