@@ -26,7 +26,7 @@ public class JuegoTennis {
                if(juego.play()){
                    juego.move();
                    juego.repaint();
-                   Thread.sleep(10);
+                   Thread.sleep(15);
                }
         }
     }

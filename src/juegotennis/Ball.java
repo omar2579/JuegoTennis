@@ -47,12 +47,12 @@ public class Ball {
                 }
                 collision(juego.player1);
                 collision(juego.player2);
-                if(fuerza>0){
-                    fuerza -= movimientoEnX;
+                if(fuerza>0 && movimientoEnX != 0){
+                    fuerza -= velosidad;
                     posicionEnX = posicionEnX + movimientoEnX;
                     posicionEnY = posicionEnY + movimientoEnY;
                 }
-                else{
+                if(fuerza <= 0){
                     if(posicionEnX < juego.getWidth()/2)
                         juego.setPuntos(2);
                     else 
@@ -61,15 +61,15 @@ public class Ball {
 	}
 
 	private void collision(Player player) {
-            if(player.getBounds().intersects(getBounds()) && player.pegar){
-                fuerza=400;
-                movimientoEnX=-movimientoEnX;
-                movimientoEnY = (int) (getBounds().getCenterY()-player.getBounds().getCenterY())/5;
-            }
-            else if(player.getBounds().intersects(getBounds())){
+            if(player.getBounds().intersects(getBounds())){
+                if(player.posicionEnX < juego.getWidth()/2)
+                    movimientoEnX = velosidad;
+                else
+                    movimientoEnX = -velosidad;
                 fuerza = 200;
-                movimientoEnX=-movimientoEnX;
                 movimientoEnY = (int) (getBounds().getCenterY()-player.getBounds().getCenterY())/5;
+                if(player.pegar)
+                fuerza=400;
             }
 	}
 	public void paint(Graphics2D g) {

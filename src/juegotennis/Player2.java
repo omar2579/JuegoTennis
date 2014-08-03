@@ -34,6 +34,6 @@ public class Player2 extends Player {
     }
     public void reset(){
         posicionEnX = juego.getWidth() - WIDTH;
-        posicionEnY = juego.getHeight() - HEIGHT*2;
+        posicionEnY = juego.getHeight() - 80;
     }
 }
