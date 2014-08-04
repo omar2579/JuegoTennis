@@ -69,9 +69,10 @@ public class Ball {
                 fuerza = 200;
                 velocidad = 2;
                 movimientoEnY = (int) (getBounds().getCenterY()-player.getBounds().getCenterY())/5;
-                if(player.pegar)
-                fuerza=400;
-                velocidad = 4;
+                if(player.pegar){
+                    fuerza = 400;
+                    velocidad = 4;
+                }
             }
 	}
 	public void paint(Graphics2D g) {
@@ -89,7 +90,7 @@ public class Ball {
             posicionEnX = juego.getWidth() - 40;
             posicionEnY = juego.getHeight() - 60;
         }
-        fuerza=600;
+        fuerza = 600;
         velocidad = 2;
         movimientoEnX = 0;
         movimientoEnY = 0;
