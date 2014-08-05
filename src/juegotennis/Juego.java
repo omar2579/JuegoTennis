@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -18,61 +20,47 @@ import javax.swing.JPanel;
  *
  * @author Omar
  */
-public class Juego extends JPanel implements ActionListener{
+public class Juego extends JPanel implements Observer{
     Ball ball = new Ball(this);
     Player1 player1;
     Player2 player2;
-    JButton reset;
     boolean play = true;
     int jugador = 1;
-    public Juego(){
+    Puntos puntos;
+    public Juego(Puntos puntos){
+        this.puntos = puntos;
         setSize(600, 400);
         setLayout(null);
         setVisible(true);
         setFocusable(true);
-                reset = new JButton();
-                reset.setText("reset");
-                reset.setBounds(270, 100, 75, 25);
-                reset.setVisible(false);
-                reset.addActionListener(this);
-                add(reset);
-                player1 = new Player1(this);
-                player2 = new Player2(this);
-                addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-			@Override
-			public void keyReleased(KeyEvent e) {
-				player1.keyReleased(e);
-                                player2.keyReleased(e);
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-                            if (e.getKeyCode() == KeyEvent.VK_H && ball.movimientoEnX == 0){
-                                ball.sacar(jugador);
-                            }
-                            if(ball.movimientoEnX != 0){
-				player1.keyPressed(e);
-                                player2.keyPressed(e);
-                            }
-			}
-		});
+        
+        player1 = new Player1(this);
+        player2 = new Player2(this);
+
+            addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                            player1.keyReleased(e);
+                            player2.keyReleased(e);
+                    }
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_H && ball.movimientoEnX == 0 && play){
+                            ball.sacar(jugador);
+                        }
+                        if(ball.movimientoEnX != 0){
+                            player1.keyPressed(e);
+                            player2.keyPressed(e);
+                        }
+                    }
+            });
 	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==reset) {
-            play = true;
-            reset.setVisible(false);
-        }
-    }
     void setPuntos(int player){
-        if (player == 1){
-            System.out.println("punto player 1");
-        }
-        else
-            System.out.println("punto player 2");
+        puntos.setPuntos(player);
         ball.Reset(player);
         player1.reset();
         player2.reset();
@@ -96,11 +84,15 @@ public class Juego extends JPanel implements ActionListener{
     }
 	
     public void gameOver() {
-        reset.setVisible(true);
         ball.Reset(1);
         play = false;
     }
-    boolean play(){
-       return play;
-   } 
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (puntos.win)
+            gameOver();
+        else 
+            play = true;
+    }
 }
