@@ -109,5 +109,7 @@ public class Marcador extends JFrame implements ActionListener, Observer{
         imprimirMarcador();
         if (puntos.win)
             reset.setVisible(true);
+        else
+            reset.setVisible(false);
     }
 }

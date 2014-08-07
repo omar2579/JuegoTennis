@@ -78,4 +78,9 @@ public class Puntos extends Observable{
         setChanged();
 	notifyObservers();
     }
+    void winer(){
+        win = false;
+        setChanged();
+	notifyObservers();
+    }
 }

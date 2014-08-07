@@ -50,11 +50,10 @@ public class Tabla extends JFrame implements Observer{
         tabla.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if(!puntos.win){
                     int row = tabla.getSelectedRow();
                     puntos.changePuntos(Integer.parseInt((String) tabla.getValueAt(row, 0)), Integer.parseInt((String) tabla.getValueAt(row, 1)));
+                    puntos.winer();
                     borrarTabla(row+1);
-                }
             }
         });
         

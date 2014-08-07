@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class JuegoTennis {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line argument
      */
     public static void main(String[] args) throws InterruptedException {
         
