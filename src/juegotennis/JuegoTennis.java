@@ -35,7 +35,7 @@ public class JuegoTennis {
         while (true) {
             juego.move();
             juego.repaint();
-            Thread.sleep(10);
+            Thread.sleep(9);
         }
     }
 }

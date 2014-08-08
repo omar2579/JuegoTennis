@@ -63,11 +63,11 @@ public class Ball {
 	private void collision(Player player) {
             if(player.getBounds().intersects(getBounds())){
                 if(player.pegar){
-                    fuerza = 400;
+                    fuerza = 500;
                     velocidad = 4;
                 }
                 else{
-                    fuerza = 200;
+                    fuerza = 300;
                     velocidad = 2;
                 }
                 if(player.posicionEnX < juego.getWidth()/2)

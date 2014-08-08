@@ -20,7 +20,7 @@ abstract class Player {
 	int movimientoEnY = 0;
         int posicionEnX = 0;
         int movimientoEnX = 0;
-        int velocidad = 2;
+        int velocidad = 3;
         boolean pegar = false;
 	public Juego juego;
 
@@ -33,7 +33,8 @@ abstract class Player {
 	public void paint(Graphics2D g) {
 		g.fillRect(posicionEnX, posicionEnY, WIDTH, HEIGHT);
 	}
-
+        public abstract void keyPressed(KeyEvent e);
+        public abstract void reset();
 	public void keyReleased(KeyEvent e) {
 		movimientoEnY = 0;
                 movimientoEnX = 0;
